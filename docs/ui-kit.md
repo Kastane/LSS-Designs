@@ -30,6 +30,8 @@ Include Tailwind CSS v4 in your app and import UI kit stylesheet in your global 
 @import '@lss/ui-web/styles/tailwind.css';
 ```
 
+Tailwind CSS v4 uses **source scanning**. `@lss/ui-web/styles/tailwind.css` already includes an internal `@source` directive pointing at `@lss/ui-web/dist/index.js`, so the UI-kit’s Tailwind classes are discovered automatically (no extra app configuration needed).
+
 Use components:
 
 ```tsx
@@ -55,6 +57,7 @@ export function Example() {
 - **Composition over variants**: prefer composing existing primitives (`Field` + `Label` + `Input`) instead of adding many one-off variants.
 - **Accessibility first**: keep labels connected, keep focus styles, don’t remove `aria-*` props.
 - **Single routing integration point**: `@lss/ui-web`’s `Link` is the only place that should know about Next/Remix/etc.
+- **Semantic tokens over neutrals**: don’t hardcode neutral palettes (`zinc-*`, `bg-white`, `dark:bg-*`, `dark:text-*`) for surfaces/text/borders. Use semantic utilities from tokens: `bg-bg`, `bg-surface`, `text-text-primary`, `border-border`, `ring-focus`, etc. (Status colors like `text-red-*` are ok for validation/errors.)
 - **Tokens before hardcoding** (future): colors/spacing/radius should move to `@lss/ui-core` as tokens once we start customizing the design.
 - **No app-specific business logic**: UI kit components should not call APIs or depend on app state managers.
 

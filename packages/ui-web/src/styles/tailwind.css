@@ -1,6 +1,18 @@
 @import 'tailwindcss';
 
 /*
+ * Tailwind v4 "source scan" note:
+ *
+ * When consumers import this stylesheet from `node_modules/@lss/ui-web/...`,
+ * Tailwind will NOT discover classnames inside the library bundle unless we
+ * explicitly point it at our compiled `dist` output.
+ *
+ * This keeps `@lss/ui-web` working "out of the box" without requiring every app
+ * to add a custom `@source` for the package.
+ */
+@source '../dist/index.js';
+
+/*
  * Dark mode strategy (single source of truth).
  *
  * - Tokens are switched via `data-theme="dark"` (and we also support `.dark` for compatibility).
