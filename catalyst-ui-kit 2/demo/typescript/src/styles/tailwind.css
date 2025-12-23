@@ -1,6 +1,74 @@
 @import 'tailwindcss';
 
+/*
+ * Dark mode strategy (single source of truth).
+ *
+ * - Tokens are switched via `data-theme="dark"` (and we also support `.dark` for compatibility).
+ * - Tailwind `dark:*` utilities must follow the same trigger, otherwise components will partially break
+ *   when only tokens or only `dark:*` are active.
+ */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *, .dark, .dark *));
+
+:root {
+  /* LSS semantic tokens (light) */
+  --lss-bg: #fefafa;
+  --lss-surface: #ffffff;
+  --lss-surface-2: #f7f8fa;
+
+  --lss-text-primary: #1f2328;
+  --lss-text-secondary: #6c757d;
+  --lss-text-muted: #8a9199;
+  --lss-on-accent: #ffffff;
+
+  --lss-border: #e0e0e0;
+
+  --lss-accent: #159e7e;
+  --lss-accent-soft: #e9f7f1;
+  --lss-focus: rgba(21, 158, 126, 0.35);
+
+  color-scheme: light;
+}
+
+:where([data-theme='dark'], .dark) {
+  /* LSS semantic tokens (dark) */
+  --lss-bg: #1a1a1a;
+  --lss-surface: #232323;
+  --lss-surface-2: #2c2c2c;
+
+  --lss-text-primary: #f2f2f2;
+  --lss-text-secondary: #a0a0a0;
+  --lss-text-muted: #7a7a7a;
+  --lss-on-accent: #ffffff;
+
+  --lss-border: #3a3a3a;
+
+  --lss-accent: #159e7e;
+  --lss-accent-soft: #27433c;
+  --lss-focus: rgba(21, 158, 126, 0.45);
+
+  color-scheme: dark;
+}
+
 @theme {
   --font-sans: Inter, sans-serif;
   --font-sans--font-feature-settings: 'cv11';
+
+  /*
+   * Tailwind colors backed by semantic tokens.
+   * These generate utilities like: bg-bg, bg-surface, text-text-primary, border-border, ring-focus, etc.
+   */
+  --color-bg: var(--lss-bg);
+  --color-surface: var(--lss-surface);
+  --color-surface-2: var(--lss-surface-2);
+
+  --color-text-primary: var(--lss-text-primary);
+  --color-text-secondary: var(--lss-text-secondary);
+  --color-text-muted: var(--lss-text-muted);
+  --color-on-accent: var(--lss-on-accent);
+
+  --color-border: var(--lss-border);
+
+  --color-accent: var(--lss-accent);
+  --color-accent-soft: var(--lss-accent-soft);
+  --color-focus: var(--lss-focus);
 }

@@ -32,6 +32,26 @@ Include Tailwind CSS v4 in your app and import UI kit stylesheet in your global 
 
 Tailwind CSS v4 uses **source scanning**. `@lss/ui-web/styles/tailwind.css` already includes an internal `@source` directive pointing at `@lss/ui-web/dist/index.js`, so the UI-kit’s Tailwind classes are discovered automatically (no extra app configuration needed).
 
+### Dark theme (tokens + `dark:*`)
+
+`@lss/ui-web` supports a predictable dark theme switch without app-level token overrides.
+Both **CSS tokens** and Tailwind **`dark:*`** utilities inside the kit react to the same trigger on the document root (`html` / `:root`):
+
+- `data-theme="dark"` (recommended)
+- `.dark` (compatibility)
+
+Example (Next.js App Router):
+
+```tsx
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" data-theme="dark">
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
 Use components:
 
 ```tsx

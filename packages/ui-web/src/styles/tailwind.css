@@ -19,7 +19,7 @@
  * - Tailwind `dark:*` utilities must follow the same trigger, otherwise UI-kit components will
  *   partially break when only tokens or only `dark:*` are active.
  */
-@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *, .dark, .dark *));
+@custom-variant dark (&:where(:root[data-theme='dark'], :root[data-theme='dark'] *, :root.dark, :root.dark *));
 
 :root {
   /* LSS semantic tokens (light) */
@@ -41,7 +41,20 @@
   color-scheme: light;
 }
 
-:where([data-theme='dark'], .dark) {
+/*
+ * IMPORTANT: Do NOT use `:where(...)` for token overrides.
+ *
+ * `:where()` has zero specificity, so it won't reliably override `:root` tokens
+ * when both selectors match the same element (common when the theme attribute/class
+ * is placed on `html` which is also `:root`). Use a selector with non-zero
+ * specificity instead.
+ *
+ * Smoke-check:
+ * - With `data-theme="dark"` on `html` (or `.dark`), `--lss-bg` should be `#1a1a1a`
+ *   and `--lss-text-primary` should be `#f2f2f2`.
+ */
+:root[data-theme='dark'],
+:root.dark {
   /* LSS semantic tokens (dark) */
   --lss-bg: #1a1a1a;
   --lss-surface: #232323;

@@ -31,8 +31,8 @@ export default async function Order({ params }: { params: Promise<{ id: string }
   return (
     <>
       <div className="max-lg:hidden">
-        <Link href="/orders" className="inline-flex items-center gap-2 text-sm/6 text-zinc-500 dark:text-zinc-400">
-          <ChevronLeftIcon className="size-4 fill-zinc-400 dark:fill-zinc-500" />
+        <Link href="/orders" className="inline-flex items-center gap-2 text-sm/6 text-text-secondary">
+          <ChevronLeftIcon className="size-4 fill-text-muted" />
           Orders
         </Link>
       </div>
@@ -43,12 +43,12 @@ export default async function Order({ params }: { params: Promise<{ id: string }
         </div>
         <div className="isolate mt-2.5 flex flex-wrap justify-between gap-x-6 gap-y-4">
           <div className="flex flex-wrap gap-x-10 gap-y-4 py-1.5">
-            <span className="flex items-center gap-3 text-base/6 text-zinc-950 sm:text-sm/6 dark:text-white">
-              <BanknotesIcon className="size-4 shrink-0 fill-zinc-400 dark:fill-zinc-500" />
+            <span className="flex items-center gap-3 text-base/6 text-text-primary sm:text-sm/6">
+              <BanknotesIcon className="size-4 shrink-0 fill-text-muted" />
               <span>US{order.amount.usd}</span>
             </span>
-            <span className="flex items-center gap-3 text-base/6 text-zinc-950 sm:text-sm/6 dark:text-white">
-              <CreditCardIcon className="size-4 shrink-0 fill-zinc-400 dark:fill-zinc-500" />
+            <span className="flex items-center gap-3 text-base/6 text-text-primary sm:text-sm/6">
+              <CreditCardIcon className="size-4 shrink-0 fill-text-muted" />
               <span className="inline-flex gap-3">
                 {order.payment.card.type}{' '}
                 <span>
@@ -56,8 +56,8 @@ export default async function Order({ params }: { params: Promise<{ id: string }
                 </span>
               </span>
             </span>
-            <span className="flex items-center gap-3 text-base/6 text-zinc-950 sm:text-sm/6 dark:text-white">
-              <CalendarIcon className="size-4 shrink-0 fill-zinc-400 dark:fill-zinc-500" />
+            <span className="flex items-center gap-3 text-base/6 text-text-primary sm:text-sm/6">
+              <CalendarIcon className="size-4 shrink-0 fill-text-muted" />
               <span>{order.date}</span>
             </span>
           </div>

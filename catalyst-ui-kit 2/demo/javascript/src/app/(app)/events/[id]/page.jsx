@@ -29,8 +29,8 @@ export default async function Event({ params }) {
   return (
     <>
       <div className="max-lg:hidden">
-        <Link href="/events" className="inline-flex items-center gap-2 text-sm/6 text-zinc-500 dark:text-zinc-400">
-          <ChevronLeftIcon className="size-4 fill-zinc-400 dark:fill-zinc-500" />
+        <Link href="/events" className="inline-flex items-center gap-2 text-sm/6 text-text-secondary">
+          <ChevronLeftIcon className="size-4 fill-text-muted" />
           Events
         </Link>
       </div>
@@ -44,7 +44,7 @@ export default async function Event({ params }) {
               <Heading>{event.name}</Heading>
               <Badge color={event.status === 'On Sale' ? 'lime' : 'zinc'}>{event.status}</Badge>
             </div>
-            <div className="mt-2 text-sm/6 text-zinc-500">
+            <div className="mt-2 text-sm/6 text-text-secondary">
               {event.date} at {event.time} <span aria-hidden="true">·</span> {event.location}
             </div>
           </div>
@@ -77,7 +77,7 @@ export default async function Event({ params }) {
           {orders.map((order) => (
             <TableRow key={order.id} href={order.url} title={`Order #${order.id}`}>
               <TableCell>{order.id}</TableCell>
-              <TableCell className="text-zinc-500">{order.date}</TableCell>
+              <TableCell className="text-text-secondary">{order.date}</TableCell>
               <TableCell>{order.customer.name}</TableCell>
               <TableCell className="text-right">US{order.amount.usd}</TableCell>
             </TableRow>

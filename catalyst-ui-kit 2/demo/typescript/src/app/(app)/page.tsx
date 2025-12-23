@@ -43,7 +43,7 @@ export default async function Home() {
           {orders.map((order) => (
             <TableRow key={order.id} href={order.url} title={`Order #${order.id}`}>
               <TableCell>{order.id}</TableCell>
-              <TableCell className="text-zinc-500">{order.date}</TableCell>
+              <TableCell className="text-text-secondary">{order.date}</TableCell>
               <TableCell>{order.customer.name}</TableCell>
               <TableCell>
                 <div className="flex items-center gap-2">
