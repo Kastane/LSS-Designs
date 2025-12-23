@@ -1,6 +1,7 @@
 'use client'
 
 import * as Headless from '@headlessui/react'
+import clsx from 'clsx'
 import React, { useState } from 'react'
 import { NavbarItem } from './navbar'
 
@@ -48,13 +49,81 @@ export function SidebarLayout({
   navbar,
   sidebar,
   children,
-}: React.PropsWithChildren<{ navbar: React.ReactNode; sidebar: React.ReactNode }>) {
+  containerClassName,
+  contentClassName,
+  surfaceClassName,
+  maxWidth = '6xl',
+  padding,
+  sidebarWidthClassName = 'w-64',
+  contentOffsetClassName = 'lg:pl-64',
+}: React.PropsWithChildren<{
+  navbar: React.ReactNode
+  sidebar: React.ReactNode
+  /**
+   * Extra classes for the inner container that wraps `children`.
+   * Defaults to `mx-auto max-w-6xl`.
+   */
+  containerClassName?: string
+  /**
+   * Extra classes for the `<main>` content element.
+   */
+  contentClassName?: string
+  /**
+   * Extra classes for the surface wrapper (padding/background/ring on desktop).
+   * Added after the defaults so you can override them.
+   */
+  surfaceClassName?: string
+  /**
+   * Max width applied to the container wrapping `children`.
+   * Use `"none"` to disable the built-in max-width and fully control it via `containerClassName`.
+   */
+  maxWidth?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl' | 'full'
+  /**
+   * Padding classes for the surface wrapper. Defaults to `p-6 lg:p-10`.
+   */
+  padding?: string
+  /**
+   * Desktop sidebar width classes. Defaults to `w-64`.
+   */
+  sidebarWidthClassName?: string
+  /**
+   * Desktop content offset classes (should match sidebar width). Defaults to `lg:pl-64`.
+   */
+  contentOffsetClassName?: string
+}>) {
   let [showSidebar, setShowSidebar] = useState(false)
+
+  let maxWidthClass =
+    maxWidth === 'none'
+      ? undefined
+      : maxWidth === 'full'
+        ? 'max-w-full'
+        : maxWidth === '7xl'
+          ? 'max-w-7xl'
+          : maxWidth === '6xl'
+            ? 'max-w-6xl'
+            : maxWidth === '5xl'
+              ? 'max-w-5xl'
+              : maxWidth === '4xl'
+                ? 'max-w-4xl'
+                : maxWidth === '3xl'
+                  ? 'max-w-3xl'
+                  : maxWidth === '2xl'
+                    ? 'max-w-2xl'
+                    : maxWidth === 'xl'
+                      ? 'max-w-xl'
+                      : maxWidth === 'lg'
+                        ? 'max-w-lg'
+                        : maxWidth === 'md'
+                          ? 'max-w-md'
+                          : maxWidth === 'sm'
+                            ? 'max-w-sm'
+                            : undefined
 
   return (
     <div className="relative isolate flex min-h-svh w-full bg-bg max-lg:flex-col">
       {/* Sidebar on desktop */}
-      <div className="fixed inset-y-0 left-0 w-64 max-lg:hidden">{sidebar}</div>
+      <div className={clsx('fixed inset-y-0 left-0 max-lg:hidden', sidebarWidthClassName)}>{sidebar}</div>
 
       {/* Sidebar on mobile */}
       <MobileSidebar open={showSidebar} close={() => setShowSidebar(false)}>
@@ -72,9 +141,21 @@ export function SidebarLayout({
       </header>
 
       {/* Content */}
-      <main className="flex flex-1 flex-col pb-2 lg:min-w-0 lg:pt-2 lg:pr-2 lg:pl-64">
-        <div className="grow p-6 lg:rounded-lg lg:bg-surface lg:p-10 lg:shadow-xs lg:ring-1 lg:ring-border/60">
-          <div className="mx-auto max-w-6xl">{children}</div>
+      <main
+        className={clsx(
+          'flex flex-1 flex-col pb-2 lg:min-w-0 lg:pt-2 lg:pr-2',
+          contentOffsetClassName,
+          contentClassName
+        )}
+      >
+        <div
+          className={clsx(
+            'grow lg:rounded-lg lg:bg-surface lg:shadow-xs lg:ring-1 lg:ring-border/60',
+            padding ?? 'p-6 lg:p-10',
+            surfaceClassName
+          )}
+        >
+          <div className={clsx('mx-auto', maxWidthClass, containerClassName)}>{children}</div>
         </div>
       </main>
     </div>
