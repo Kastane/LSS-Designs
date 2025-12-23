@@ -1,0 +1,15 @@
+{
+  "name": "lss-designs",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run -ws --if-present build",
+    "lint": "npm run -ws --if-present lint",
+    "typecheck": "npm run -ws --if-present typecheck",
+    "format": "npm run -ws --if-present format"
+  }
+}
+
+
