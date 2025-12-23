@@ -1,5 +1,14 @@
 @import 'tailwindcss';
 
+/*
+ * Dark mode strategy (single source of truth).
+ *
+ * - Tokens are switched via `data-theme="dark"` (and we also support `.dark` for compatibility).
+ * - Tailwind `dark:*` utilities must follow the same trigger, otherwise UI-kit components will
+ *   partially break when only tokens or only `dark:*` are active.
+ */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *, .dark, .dark *));
+
 :root {
   /* LSS semantic tokens (light) */
   --lss-bg: #fefafa;
@@ -20,7 +29,7 @@
   color-scheme: light;
 }
 
-[data-theme='dark'] {
+:where([data-theme='dark'], .dark) {
   /* LSS semantic tokens (dark) */
   --lss-bg: #1a1a1a;
   --lss-surface: #232323;
